@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose // 몽구스를 이용해서 mongoDB에 연결
   .connect(process.env.MONGO_URI, {
@@ -8,4 +8,4 @@ mongoose // 몽구스를 이용해서 mongoDB에 연결
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
-  module.exports = { mongoose };
+module.exports = { mongoose };
