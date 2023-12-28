@@ -3,7 +3,7 @@ const app = express(); // express를 이용해서 app을 만들어준다.
 const cors = require("cors");
 require("dotenv").config();
 
-const port = process.env.PORT; // port 번호를 5000번으로 설정
+const port = process.env.PORT; // port 번호를 8000번으로 설정
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
