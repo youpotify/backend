@@ -19,8 +19,7 @@ const getSearchResult = async (accessToken, searchKeyword) => {
     console.log("error");
   }
 
-  console.log(searchResult.youtube);
-  if (searchResult.youtube && searchResult.spotify)
+  if (searchResult.youtube.length > 0 && searchResult.spotify.length > 0)
     return { message: "Fetched search results successfully", searchResult };
 };
 
@@ -47,7 +46,7 @@ const fetchYoutube = async (searchKeyword) => {
     // api 호출 결과 저장
     searchResult.youtube = response.data.items;
   } catch (error) {
-    console.error(error);
+    console.error(`youtube - ${error}`);
   }
 };
 
