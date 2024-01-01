@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const clientId = '5eef7a15d6774d76bc4299388e75e8af';
-const clientSecret = '11402bc3c70c473b8f118b741af562d5';
+const clientId = '';
+const clientSecret = '';
 const authString = `${clientId}:${clientSecret}`;
 const authBase64 = Buffer.from(authString).toString('base64');
 

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const apiKey = 'AIzaSyCfb8qPUZZfL2kEPgXWTJHwXL1r_eWKxYU';
+const apiKey = '';
 
 exports.searchYouTube = async (searchQuery) => {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
