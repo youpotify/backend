@@ -9,13 +9,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/authRouter.js");
 const oauthRouter = require("./routes/oauthRouter.js");
-
-const spotifyRoutes = require('./routes/spotifyRouter');
-const youtubeRoutes = require('./routes/youtubeRouter');
-
-
+const spotifyRoutes = require("./routes/spotifyRouter");
+const youtubeRoutes = require("./routes/youtubeRouter");
 const musicInfoRouter = require("./routes/musicInfoRoutes.js");
-
+const searchRouter = require("./routes/searchRouter.js");
 
 // const { database } = require("./database/connect.js");
 
@@ -30,8 +27,9 @@ app.use(cors());
 
 app.use("/api/auths", authRouter);
 app.use("/api/oauths", oauthRouter);
-app.use('/spotify', spotifyRoutes);
-app.use('/youtube', youtubeRoutes);
+app.use("/spotify", spotifyRoutes);
+app.use("/youtube", youtubeRoutes);
+app.use("/api/search", searchRouter);
 
 app.use(musicInfoRouter);
 
