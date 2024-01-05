@@ -1,6 +1,7 @@
 const axios = require('axios');
 const spotifyService = require('../services/spotifyService');
 const youtubeService = require('../services/youtubeService');
+const wikipediaService = require('../services/wikipediaService');
 
 exports.searchArtist = async (req, res) => {
     const artistName = req.query.term;
@@ -9,6 +10,7 @@ exports.searchArtist = async (req, res) => {
     }
 
     try {
+
         const spotifyToken = await spotifyService.fetchSpotifyToken();
         if (!spotifyToken) {
             return res.status(500).send('Unable to fetch Spotify token');
@@ -40,6 +42,10 @@ exports.searchArtist = async (req, res) => {
             })
         ]);
 
+        //위키피디아에서 아티스트 검색
+        const wikiResponse = await wikipediaService.fetchArtistInfo(artist.name);
+        console.log(wikiResponse);
+
         const songs = topTracksResponse.data.tracks;
         const youtubeChannelId = await youtubeService.searchYoutube(artistName);
 
@@ -59,7 +65,8 @@ exports.searchArtist = async (req, res) => {
                 songs: songs, // 유튜브 ID가 추가된 트랙 리스트
                 albums: albumsResponse.data.items
             },
-            youtubeId : youtubeChannelId 
+            youtubeId : youtubeChannelId,
+            description : wikiResponse
         };
 
         // 결과 반환
