@@ -42,19 +42,24 @@ exports.searchArtist = async (req, res) => {
             })
         ]);
 
-        //위키피디아에서 아티스트 검색
+        //위키피디아에서 아티스트 검색(아티스트 설명 추가)
         const wikiResponse = await wikipediaService.fetchArtistInfo(artist.name);
         console.log(wikiResponse);
 
         const songs = topTracksResponse.data.tracks;
         const youtubeChannelId = await youtubeService.searchYoutube(artistName);
 
-        // 유튜브 동영상 ID를 각 트랙에 추가
-        for (let track of songs) {
-            console.log(`노래제목은 ${track.name}`);
-            const videoId = await youtubeService.getVideoIdFromChannel(youtubeChannelId, track.name); // youtubeChannelId는 해당 아티스트의 유튜브 채널 ID
-            track.youtubeId = videoId; // 유튜브 ID 추가
-        }
+        const releasePlaylist = await youtubeService.getReleasePlaylist(youtubeChannelId);
+        console.log(`발매곡 : ${releasePlaylist}`);
+
+        // 유튜브 동영상 ID를 각 트랙에 추가 -> 처음 아티스트 페이지에서 로드되는 음악들 바로 재생할 수 있도록 youtube 동영상 id 넘겨주기
+        // for (let track of songs) {
+        //     //console.log(`노래제목은 ${track.name}`);
+
+        //     const videoId = await youtubeService.getVideoIdFromChannel(youtubeChannelId, track.name); // youtubeChannelId는 해당 아티스트의 유튜브 채널 ID
+        //     console.log(`노래제목은 ${track.name}, youtubdID는 ${videoId}`);
+        //     track.youtubeId = videoId; // 유튜브 ID 추가
+        // }
 
         const result = {
             spotify: {
