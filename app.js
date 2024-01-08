@@ -1,6 +1,7 @@
 const express = require("express"); // express를 가져온다.
 const app = express(); // express를 이용해서 app을 만들어준다.
 const cors = require("cors");
+const path = require('path');
 require("dotenv").config();
 
 const port = process.env.PORT; // port 번호를 8000번으로 설정
@@ -13,7 +14,9 @@ const spotifyRoutes = require("./routes/spotifyRouter");
 const youtubeRoutes = require("./routes/youtubeRouter");
 const musicInfoRouter = require("./routes/musicInfoRoutes.js");
 const searchRouter = require("./routes/searchRouter.js");
+const playlistRouter = require("./routes/playlistRouter.js");
 
+connectDatabase();
 // const { database } = require("./database/connect.js");
 
 // application/x-www-form-urlencoded
@@ -30,6 +33,8 @@ app.use("/api/oauths", oauthRouter);
 app.use("/spotify", spotifyRoutes);
 app.use("/youtube", youtubeRoutes);
 app.use("/api/search", searchRouter);
+app.use('/playlist', playlistRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(musicInfoRouter);
 
