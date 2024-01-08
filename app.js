@@ -16,6 +16,9 @@ const musicInfoRouter = require("./routes/musicInfoRoutes.js");
 const searchRouter = require("./routes/searchRouter.js");
 const reactionRouter = require('./routes/reactionRouter');
 
+const weatherRouter = require("./routes/weatherRouter.js");
+
+
 // const { database } = require("./database/connect.js");
 
 // application/x-www-form-urlencoded
@@ -35,5 +38,6 @@ app.use("/api/search", searchRouter);
 app.use('/reactions', reactionRouter);
 
 app.use(musicInfoRouter);
+app.use(weatherRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
