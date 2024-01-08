@@ -13,6 +13,7 @@ const spotifyRoutes = require("./routes/spotifyRouter");
 const youtubeRoutes = require("./routes/youtubeRouter");
 const musicInfoRouter = require("./routes/musicInfoRoutes.js");
 const searchRouter = require("./routes/searchRouter.js");
+const weatherRouter = require("./routes/weatherRouter.js");
 
 // const { database } = require("./database/connect.js");
 
@@ -32,5 +33,6 @@ app.use("/youtube", youtubeRoutes);
 app.use("/api/search", searchRouter);
 
 app.use(musicInfoRouter);
+app.use(weatherRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
