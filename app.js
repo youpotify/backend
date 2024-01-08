@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const port = process.env.PORT; // port 번호를 8000번으로 설정
+const connectDatabase = require("./database/connect"); // 데이터베이스 연결 파일 불러오기
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -13,6 +14,7 @@ const spotifyRoutes = require("./routes/spotifyRouter");
 const youtubeRoutes = require("./routes/youtubeRouter");
 const musicInfoRouter = require("./routes/musicInfoRoutes.js");
 const searchRouter = require("./routes/searchRouter.js");
+const reactionRouter = require('./routes/reactionRouter');
 
 // const { database } = require("./database/connect.js");
 
@@ -30,6 +32,7 @@ app.use("/api/oauths", oauthRouter);
 app.use("/spotify", spotifyRoutes);
 app.use("/youtube", youtubeRoutes);
 app.use("/api/search", searchRouter);
+app.use('/reactions', reactionRouter);
 
 app.use(musicInfoRouter);
 
