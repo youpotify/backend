@@ -170,9 +170,9 @@ const axios = require('axios');
                 }
             });
 
-            console.log(`playlistResponse : ${JSON.stringify(playListResponse.data)}`);
+            //console.log(`playlistResponse : ${JSON.stringify(playListResponse.data)}`);
 
-            //playListResponse의 data의 items 중 localized의 title이 albumTitle과 같은 항목의 id 반환하기
+            //playListResponse의 data의 items 중 localized의 title이 albumTitle과 같은 항목의 id 반환하기 또는 같은 문자열을 포함하고 있는 항목 반환
             const matchingPlaylist = playListResponse.data.items.find(item => 
                 item.snippet.title.toLowerCase() === albumTitle.toLowerCase()
             );
@@ -192,5 +192,33 @@ const axios = require('axios');
         }
 
 
+    };
+
+
+
+    //아티스트 공식 채널에서 release 카테고리 재생목록 반환하기
+    exports.getReleasePlaylist = async (channelId) => {
+        const playlistInfoUrl = 'https://www.googleapis.com/youtube/v3/playlists';
+        try {
+            const playListResponse = await axios.get(playlistInfoUrl, {
+                params: {
+                    part: 'snippet',
+                    channelId: channelId,
+                    maxResults : 50, //max
+                    key: process.env.YOUTUBE_API_KEY
+                }
+            });
+
+            //반환받은 플레이리스트 중 id에 OLAK5uy라는 문자열을 포함하고 있는 플레이리스트만 새로운 리스트에 담기
+            const releasePlaylists = playListResponse.data.items.filter(playlist => 
+                playlist.id.includes('OLAK5uy') || 
+                (playlist.snippet.resourceId && playlist.snippet.resourceId.playlistId.includes('OLAK5uy')));
+
+            return releasePlaylists;
+
+        } catch (error) {
+            console.error('error~~', error);
+            throw error;
+        }
     };
 
